@@ -1,0 +1,89 @@
+<!DOCTYPE html
+
+<html>
+    <head>
+        <title>COVID-19</title>
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+
+    <body>
+        <div class="main-content">
+            {{>header}}
+            
+            <p>COVID-19 Data By Country</p>
+
+            <form>
+                <input placeholder="Country">
+                <button>Search</button>
+            </form>
+
+            <p id="message"></p>
+
+            <ul class="data-list">
+                <li class="data-item">
+                    <b class="data-headline">
+                        Total:
+                    </b>
+                    <span class="data-span" id="total-cases">
+
+                    </span>
+                </li>
+                <li class="data-item">
+                    <b class="data-headline">
+                        New:
+                    </b>
+                    <span class="data-span" id="new-cases">
+
+                    </span>
+                </li>
+                <li class="data-item">
+                    <b class="data-headline">
+                        Critical:
+                    </b>
+                    <span class="data-span" id="critical">
+
+                    </span>
+                </li>
+                <li class="data-item">
+                    <b class="data-headline">
+                        Recovered:
+                    </b>
+                    <span class="data-span" id="recovered">
+
+                    </span>
+                </li>
+                <li class="data-item">
+                    <b class="data-headline">
+                        Active:
+                    </b>
+                    <span class="data-span" id="active-cases">
+
+                    </span>
+                </li>
+            </ul>
+
+            <ul class="data-list">
+                <li class="data-item">
+                    <b class="data-headline">
+                        Deaths:
+                    </b>
+                    <span class="data-span" id="deaths">
+
+                    </span>
+                </li>
+                <li class="data-item">
+                    <b class="data-headline">
+                        New:
+                    </b>
+                    <span class="data-span" id="new-deaths">
+
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        {{>footer}}
+
+        <script src="/js/app.js"></script>
+    </body>
+</html>
