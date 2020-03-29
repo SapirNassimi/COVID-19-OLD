@@ -2,7 +2,8 @@ const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
 
-const { getCountryData } = require('./utils/statistics');
+const { getCountryData, getAllCountriesData } = require('./utils/statistics');
+const { sortByMostInfected } = require('./utils/sortRecords');
 
 const app = express();
 
@@ -19,14 +20,23 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
-    res.render('index', {
-        date: new Date().toDateString()
-    });
-});
+    let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
 
-app.get('/worldwide', (req, res) => {
-    res.render('worldwide', {
-        date: new Date().toDateString()
+    getAllCountriesData((error, data) => {
+        if (error) {
+            return res.render('index', {
+                error: 'An error occured. Try again later',
+                additionalErrorData: error
+            });
+        }
+
+        sortByMostInfected(data.response);
+        data.response = data.response.slice(0, numberOfRecords);
+        console.log(data);
+
+        res.render('index', {
+            details: data
+        });
     });
 });
 
@@ -34,29 +44,23 @@ app.get('/country', (req, res) => {
     const country = req.query.country;
 
     if (!country) {
-        return res.render('country', {
+        return res.render('index', {
             error: 'No country provided'
         });
     }
 
-    console.log(country);
+    getCountryData(country, (error, data) => {
+        if (error) {
+            return res.render('index', {
+                error: 'An error occured. Try again later',
+                additionalErrorData: error
+            }); 
+        }
 
-    try {
-        getCountryData(country, (error, data) => {
-            if (error) {
-                return res.render('country', {
-                    error: 'An error occured. Try again later',
-                    additionalErrorData: error
-                }); 
-            }
-
-            res.send({
-                details: data
-            });
+        res.send({
+            details: data
         });
-    } catch (error) {
-        console.log(error);
-    }
+    });
 });
 
 app.get('*', (req, res) => {

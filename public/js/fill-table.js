@@ -7,29 +7,16 @@ const message = document.querySelector('#message');
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
     message.textContent = 'Loading';
-    let route;
+    let route = '/';
     let tableData;
 
     if (serach.value.trim()) {
         const country = serach.value;
-        route = `/country?country=${country}`;
-    } else {
-        route = '/worldwide';
+        route += `country?country=${country}`;
     }
 
-    fetch(route).then(response => {
-        response.json().then(data => {
-            if (data.error) {
-                console.log(data.error);
-                message.textContent = data.error;
-            } else {
-                console.log(data.details);
-                message.textContent =  '';
-                tableData = data.details;
-                fillTable(tableData);
-            }
-        });
-    });
+    tableData = getDataFromServer(route);
+    fillTable(tableData);
 });
 
 const fillTable = tableData => {
@@ -81,4 +68,24 @@ const fillTable = tableData => {
 
         table.appendChild(li);
     });
+}
+
+const getDataFromServer = route => {
+    let content;
+
+    fetch(route).then(response => {
+        console.log(response);
+        /*response.json().then(data => {
+            if (data.error) {
+                console.log(data.error);
+                message.textContent = data.error;
+            } else {
+                console.log(data.details);
+                message.textContent =  '';
+                content = data.details;
+            }
+        });*/
+    });
+
+    return content;
 }
