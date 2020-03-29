@@ -12,7 +12,7 @@ statisticsForm.addEventListener('submit', (event) => {
 
     countryInput.value.trim() ? route += `?country=${countryInput.value}` : route;
 
-    if (limitInput) {
+    if (limitInput.value != 0) {
         route.includes('?') ? route += '&' : route += '?';
         route += `limit=${limitInput.value + 1}`;
     }
