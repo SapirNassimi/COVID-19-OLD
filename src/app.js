@@ -21,8 +21,9 @@ app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
     let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
+    const country = req.query.country;
 
-    getStatistics(undefined, (error, data) => {
+    getStatistics(country, (error, data) => {
         if (error) {
             return res.render('index', {
                 error: 'An error occured. Try again later',
@@ -40,13 +41,8 @@ app.get('', (req, res) => {
 });
 
 app.get('/country', (req, res) => {
+    let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
     const country = req.query.country;
-
-    if (!country) {
-        return res.render('index', {
-            error: 'No country provided'
-        });
-    }
 
     getStatistics(country, (error, data) => {
         if (error) {
@@ -55,6 +51,9 @@ app.get('/country', (req, res) => {
                 additionalErrorData: error
             }); 
         }
+
+        sortByMostInfected(data.response);
+        data.response = data.response.slice(0, numberOfRecords);
 
         res.send({
             details: data
