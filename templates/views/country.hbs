@@ -19,71 +19,25 @@
 
             <p id="message"></p>
 
-            <ul class="data-list">
-                <li class="data-item">
-                    <b class="data-headline">
-                        Total:
-                    </b>
-                    <span class="data-span" id="total-cases">
-
-                    </span>
-                </li>
-                <li class="data-item">
-                    <b class="data-headline">
-                        New:
-                    </b>
-                    <span class="data-span" id="new-cases">
-
-                    </span>
-                </li>
-                <li class="data-item">
-                    <b class="data-headline">
-                        Critical:
-                    </b>
-                    <span class="data-span" id="critical">
-
-                    </span>
-                </li>
-                <li class="data-item">
-                    <b class="data-headline">
-                        Recovered:
-                    </b>
-                    <span class="data-span" id="recovered">
-
-                    </span>
-                </li>
-                <li class="data-item">
-                    <b class="data-headline">
-                        Active:
-                    </b>
-                    <span class="data-span" id="active-cases">
-
-                    </span>
-                </li>
-            </ul>
-
-            <ul class="data-list">
-                <li class="data-item">
-                    <b class="data-headline">
-                        Deaths:
-                    </b>
-                    <span class="data-span" id="deaths">
-
-                    </span>
-                </li>
-                <li class="data-item">
-                    <b class="data-headline">
-                        New:
-                    </b>
-                    <span class="data-span" id="new-deaths">
-
-                    </span>
-                </li>
-            </ul>
+            <div class="container">
+                <h2>Cases Worldwide</h2>
+                <ul class="data-table">
+                    <li class="table-header">
+                        <div class="col col-1">Country</div>
+                        <div class="col col-2">Total Cases</div>
+                        <div class="col col-3">New Cases</div>
+                        <div class="col col-4">Total Deaths</div>
+                        <div class="col col-5">New Deaths</div>
+                        <div class="col col-6">Critical</div>
+                        <div class="col col-7">Recovered</div>
+                        <div class="col col-8">Active Cases</div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         {{>footer}}
 
-        <script src="/js/app.js"></script>
+        <script src="/js/fill-table.js"></script>
     </body>
 </html>

@@ -4,13 +4,14 @@ const countryForm = document.querySelector('form');
 const serach = document.querySelector('input');
 const message = document.querySelector('#message');
 
-const totalCases = document.querySelector('#total-cases');
-const newCases = document.querySelector('#new-cases');
-const critical = document.querySelector('#critical');
-const recovered = document.querySelector('#recovered');
-const activeCases = document.querySelector('#active-cases');
-const totalDeaths = document.querySelector('#deaths');
-const newDeaths = document.querySelector('#new-deaths');
+const countryName = document.querySelector('#col-col-1');
+const totalCases = document.querySelector('#col-col-1');
+const newCases = document.querySelector('#col-col-2');
+const critical = document.querySelector('#col-col-3');
+const recovered = document.querySelector('#col-col-4');
+const activeCases = document.querySelector('#col-col-1');
+const totalDeaths = document.querySelector('#col-col-1');
+const newDeaths = document.querySelector('#col-col-1');
 
 countryForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -42,3 +43,19 @@ countryForm.addEventListener('submit', (event) => {
         });
     });
 });
+
+
+
+/*
+
+                <li class="table-row">
+                    <div class="col col-1" data-label="Country">Israel</div>
+                    <div class="col col-2" data-label="Total Cases">3600</div>
+                    <div class="col col-3" data-label="New Cases">+300</div>
+                    <div class="col col-4" data-label="Total Deaths">12</div>
+                    <div class="col col-5" data-label="New Deaths">1</div>
+                    <div class="col col-6" data-label="Critical">50</div>
+                    <div class="col col-7" data-label="recovered">80</div>
+                    <div class="col col-8" data-label="Active Cases">3500</div>
+                </li>
+*/
