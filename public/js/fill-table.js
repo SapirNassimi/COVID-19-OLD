@@ -1,7 +1,8 @@
 console.log('Client side javascript is loaded');
 
 const statisticsForm = document.querySelector('form');
-const serach = document.querySelector('input');
+const countryInput = document.querySelector('#country-input');
+const limitInput = document.querySelector('#limit-input');
 const message = document.querySelector('#message');
 
 statisticsForm.addEventListener('submit', (event) => {
@@ -9,9 +10,11 @@ statisticsForm.addEventListener('submit', (event) => {
     message.textContent = 'Loading';
     let route = '/country';
 
-    if (serach.value.trim()) {
-        const country = serach.value;
-        route += `?country=${country}`;
+    countryInput.value.trim() ? route += `?country=${countryInput.value}` : route;
+
+    if (limitInput) {
+        route.includes('?') ? route += '&' : route += '?';
+        route += `limit=${limitInput.value + 1}`;
     }
 
     getDataFromServer(route, data => {
