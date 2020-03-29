@@ -1,6 +1,6 @@
 const unirest = require('unirest');
 
-const getAllCountriesData = () => {
+const getAllCountriesData = (callback) => {
     const request = unirest('GET', 'https://covid-193.p.rapidapi.com/statistics');
 
     request.headers({
@@ -10,10 +10,12 @@ const getAllCountriesData = () => {
     
     request.end(res => {
         if (res.error) {
-            throw new Error(res.error);
+            callback(res.error);
         }
+
+        callback(undefined, res.body);
     
-        console.log(res.body);
+        console.log('Done fetching data');
     });
 }
 
@@ -35,6 +37,8 @@ const getCountryData = (countryName, callback) => {
         }
     
         callback(undefined, res.body);
+
+        console.log('Done fetching data');
     });
 }
 

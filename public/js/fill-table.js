@@ -7,28 +7,15 @@ const message = document.querySelector('#message');
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
     message.textContent = 'Loading';
-    let route;
-    let tableData;
+    let route = '/';
 
     if (serach.value.trim()) {
         const country = serach.value;
-        route = `/country?country=${country}`;
-    } else {
-        route = '/worldwide';
+        route += `country?country=${country}`;
     }
 
-    fetch(route).then(response => {
-        response.json().then(data => {
-            if (data.error) {
-                console.log(data.error);
-                message.textContent = data.error;
-            } else {
-                console.log(data.details);
-                message.textContent =  '';
-                tableData = data.details;
-                fillTable(tableData);
-            }
-        });
+    getDataFromServer(route, data => {
+        fillTable(data);
     });
 });
 
@@ -80,5 +67,21 @@ const fillTable = tableData => {
         li.appendChild(divActiveCases);
 
         table.appendChild(li);
+    });
+}
+
+const getDataFromServer = (route, callback) => {
+    fetch(route).then(response => {
+        console.log(response);
+        response.json().then(data => {
+            if (data.error) {
+                console.log(data.error);
+                message.textContent = data.error;
+            } else {
+                console.log(data.details);
+                message.textContent = '';
+                callback(data.details);
+            }
+        });
     });
 }
