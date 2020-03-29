@@ -7,11 +7,11 @@ const message = document.querySelector('#message');
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
     message.textContent = 'Loading';
-    let route = '/';
+    let route = '/country';
 
     if (serach.value.trim()) {
         const country = serach.value;
-        route += `country?country=${country}`;
+        route += `?country=${country}`;
     }
 
     getDataFromServer(route, data => {
