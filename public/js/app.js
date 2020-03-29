@@ -9,7 +9,7 @@ const newCases = document.querySelector('#new-cases');
 const critical = document.querySelector('#critical');
 const recovered = document.querySelector('#recovered');
 const activeCases = document.querySelector('#active-cases');
-const deaths = document.querySelector('#deaths');
+const totalDeaths = document.querySelector('#deaths');
 const newDeaths = document.querySelector('#new-deaths');
 
 countryForm.addEventListener('submit', (event) => {
@@ -36,7 +36,7 @@ countryForm.addEventListener('submit', (event) => {
                 critical.textContent = cases.critical;
                 recovered.textContent = cases.recovered;
                 activeCases.textContent = cases.active;
-                deaths.textContent = deaths.total;
+                totalDeaths.textContent = deaths.total;
                 newDeaths.textContent = deaths.new;
             }
         });
