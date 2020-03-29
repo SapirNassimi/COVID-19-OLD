@@ -8,15 +8,15 @@ statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
     message.textContent = 'Loading';
     let route = '/';
-    let tableData;
 
     if (serach.value.trim()) {
         const country = serach.value;
         route += `country?country=${country}`;
     }
 
-    tableData = getDataFromServer(route);
-    fillTable(tableData);
+    getDataFromServer(route, data => {
+        fillTable(data);
+    });
 });
 
 const fillTable = tableData => {
@@ -70,22 +70,18 @@ const fillTable = tableData => {
     });
 }
 
-const getDataFromServer = route => {
-    let content;
-
+const getDataFromServer = (route, callback) => {
     fetch(route).then(response => {
         console.log(response);
-        /*response.json().then(data => {
+        response.json().then(data => {
             if (data.error) {
                 console.log(data.error);
                 message.textContent = data.error;
             } else {
                 console.log(data.details);
-                message.textContent =  '';
-                content = data.details;
+                message.textContent = '';
+                callback(data.details);
             }
-        });*/
+        });
     });
-
-    return content;
 }

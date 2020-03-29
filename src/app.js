@@ -32,7 +32,6 @@ app.get('', (req, res) => {
 
         sortByMostInfected(data.response);
         data.response = data.response.slice(0, numberOfRecords);
-        console.log(data);
 
         res.render('index', {
             details: data
