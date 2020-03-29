@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
 
-const { getCountryData, getAllCountriesData } = require('./utils/statistics');
+const { getStatistics } = require('./utils/statistics');
 const { sortByMostInfected } = require('./utils/sortRecords');
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.static(publicDirectoryPath));
 app.get('', (req, res) => {
     let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
 
-    getAllCountriesData((error, data) => {
+    getStatistics(undefined, (error, data) => {
         if (error) {
             return res.render('index', {
                 error: 'An error occured. Try again later',
@@ -48,7 +48,7 @@ app.get('/country', (req, res) => {
         });
     }
 
-    getCountryData(country, (error, data) => {
+    getStatistics(country, (error, data) => {
         if (error) {
             return res.render('index', {
                 error: 'An error occured. Try again later',
