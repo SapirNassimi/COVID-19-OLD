@@ -4,6 +4,7 @@ const statisticsForm = document.querySelector('form');
 const countryInput = document.querySelector('#country-input');
 const limitInput = document.querySelector('#limit-input');
 const message = document.querySelector('#message');
+const table = document.querySelector('ul');
 
 window.onload = () => {
     loadData();
@@ -34,6 +35,12 @@ const loadData = () => {
     }
 
     getDataFromServer(route, data => {
+        const numberOfChildren = table.children.length;
+
+        for (let i = 1; i < numberOfChildren; i++) {
+            table.removeChild(table.children[1]);
+        }
+
         fillTable(data);
     });
 }
@@ -55,8 +62,6 @@ const getDataFromServer = (route, callback) => {
 }
 
 const fillTable = tableData => {
-    const table = document.querySelector('ul');
-
     tableData.response.forEach(countryData => {
         let li = document.createElement('li');
         li.classList.add('table-row');
