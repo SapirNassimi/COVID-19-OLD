@@ -5,6 +5,10 @@ const countryInput = document.querySelector('#country-input');
 const limitInput = document.querySelector('#limit-input');
 const message = document.querySelector('#message');
 
+window.onload = () => {
+    loadData();
+}
+
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
     loadData();
