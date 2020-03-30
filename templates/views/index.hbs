@@ -7,33 +7,33 @@
     </head>
 
     <body>
-        <div class="main-content">
-            {{>header}}
-            
-            <p>COVID-19 Data By Country</p>
+        <div class="main-content">            
+            <div id="header-wrapper">
+                <form id="input-form">
+                    {{>header}}
+                
+                    <p>COVID-19 Statistics</p>
+                    <input id="country-input" placeholder="Country">
+                    <input id="limit-input" type="number" min="1" placeholder="Top Countries To Show">
+                    <button>Search</button>
+                    <p id="message"></p>
+                </form>
 
-            <form id="input-form">
-                <input id="country-input" placeholder="Country">
-                <input id="limit-input" type="number" min="1" placeholder="Top Countries To Show">
-                <button>Search</button>
-            </form>
-
-            <div>
-                <div>
-                    <p class="top-data-title">Coronavirus Cases</p>
-                    <p class="top-data-value" id="virus-cases-top"></p>
-                </div>
-                <div>
-                    <p class="top-data-title">Deaths</p>
-                    <p class="top-data-value" id="deaths-top"></p>
-                </div>
-                <div>
-                    <p class="top-data-title">Recovered</p>
-                    <p class="top-data-value" id="recovered-top"></p>
-                </div>
+                <form id="totals-data-div">
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Coronavirus Cases</p>
+                        <p class="top-data-value red" id="virus-cases-top"></p>
+                    </div>
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Deaths</p>
+                        <p class="top-data-value red" id="deaths-top"></p>
+                    </div>
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Recovered</p>
+                        <p class="top-data-value green" id="recovered-top"></p>
+                    </div>
+                </form>
             </div>
-
-            <p id="message"></p>
 
             <div class="container">
                 <h2>Cases Worldwide</h2>
