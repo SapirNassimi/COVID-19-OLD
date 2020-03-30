@@ -46,7 +46,7 @@ const loadData = () => {
 
         if (data.response[0].country === "All") {
             fillGlobalData(data.response[0]);
-            totalsRecord = createTotalsRecord(data.response[0]);
+            updateTotalsRecord(data.response[0]);
             delete data.response[0];
         }
 
@@ -74,7 +74,22 @@ const getDataFromServer = (route, callback) => {
 
 const fillTable = tableData => {
     tableData.response.forEach(countryData => {
-        let li = document.createElement('li');
+        table.appendChild(createListItem(countryData));
+    });
+}
+
+const fillGlobalData = globalData => {
+
+}
+
+const updateTotalsRecord = data => {
+    const totals = createListItem(data);
+
+    totalsRecord = totals;
+}
+
+const createListItem = countryData => {
+    let li = document.createElement('li');
         li.classList.add('table-row');
         
         let divCountry = document.createElement('div');
@@ -117,14 +132,5 @@ const fillTable = tableData => {
         divActiveCases.textContent = countryData.cases.active;
         li.appendChild(divActiveCases);
 
-        table.appendChild(li);
-    });
-}
-
-const fillGlobalData = globalData => {
-
-}
-
-const createTotalsRecord = data => {
-    
+    return li;
 }
