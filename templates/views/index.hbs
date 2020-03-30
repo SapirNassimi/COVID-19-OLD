@@ -12,11 +12,26 @@
             
             <p>COVID-19 Data By Country</p>
 
-            <form>
+            <form id="input-form">
                 <input id="country-input" placeholder="Country">
                 <input id="limit-input" type="number" min="1" placeholder="Top Countries To Show">
                 <button>Search</button>
             </form>
+
+            <div>
+                <div>
+                    <p class="top-data-title">Coronavirus Cases</p>
+                    <p class="top-data-value" id="virus-cases-top"></p>
+                </div>
+                <div>
+                    <p class="top-data-title">Deaths</p>
+                    <p class="top-data-value" id="deaths-top"></p>
+                </div>
+                <div>
+                    <p class="top-data-title">Recovered</p>
+                    <p class="top-data-value" id="recovered-top"></p>
+                </div>
+            </div>
 
             <p id="message"></p>
 

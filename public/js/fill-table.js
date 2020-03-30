@@ -82,7 +82,13 @@ const fillTable = tableData => {
 }
 
 const fillGlobalData = globalData => {
+    const casesTop = document.querySelector('#virus-cases-top');
+    const deathsTop = document.querySelector('#deaths-top');
+    const recoveredTop = document.querySelector('#recovered-top');
 
+    casesTop.textContent = globalData.cases.total;
+    deathsTop.textContent = globalData.deaths.total;
+    recoveredTop.textContent = globalData.cases.recovered;
 }
 
 const updateTotalsRecord = (data) => {
