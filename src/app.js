@@ -55,7 +55,8 @@ app.get('/country', (req, res) => {
 
         sortByMostInfected(data.response);
         data.response = data.response.slice(0, numberOfRecords);
-
+        data.results = numberOfRecords;
+        
         res.send({
             details: data
         });
