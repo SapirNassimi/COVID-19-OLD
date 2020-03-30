@@ -6,6 +6,8 @@ const limitInput = document.querySelector('#limit-input');
 const message = document.querySelector('#message');
 const table = document.querySelector('ul');
 
+let totalsRecord;
+
 window.onload = () => {
     loadData();
 }
@@ -36,12 +38,21 @@ const loadData = () => {
 
     getDataFromServer(route, data => {
         const numberOfChildren = table.children.length;
+        totalsRecord = undefined;
 
         for (let i = 1; i < numberOfChildren; i++) {
             table.removeChild(table.children[1]);
         }
 
+        if (data.response[0].country === "All") {
+            fillGlobalData(data.response[0]);
+            totalsRecord = createTotalsRecord(data.response[0]);
+            delete data.response[0];
+        }
+
         fillTable(data);
+
+        totalsRecord ? table.appendChild(totalsRecord) : false;
     });
 }
 
@@ -108,4 +119,12 @@ const fillTable = tableData => {
 
         table.appendChild(li);
     });
+}
+
+const fillGlobalData = globalData => {
+
+}
+
+const createTotalsRecord = data => {
+    
 }
