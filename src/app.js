@@ -20,7 +20,6 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
-    let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
     const country = req.query.country;
 
     getStatistics(country, (error, data) => {
@@ -32,8 +31,6 @@ app.get('', (req, res) => {
         }
 
         sortByMostInfected(data.response);
-        data.response = data.response.slice(0, numberOfRecords);
-        data.results = numberOfRecords;
 
         res.render('index', {
             details: data
@@ -42,7 +39,6 @@ app.get('', (req, res) => {
 });
 
 app.get('/country', (req, res) => {
-    let numberOfRecords = (!req.query.limit) ? 21 : req.query.limit;
     const country = req.query.country;
 
     getStatistics(country, (error, data) => {
@@ -54,8 +50,6 @@ app.get('/country', (req, res) => {
         }
 
         sortByMostInfected(data.response);
-        data.response = data.response.slice(0, numberOfRecords);
-        data.results = numberOfRecords;
         
         res.send({
             details: data

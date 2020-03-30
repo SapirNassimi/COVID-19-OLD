@@ -6,15 +6,31 @@ const limitInput = document.querySelector('#limit-input');
 const message = document.querySelector('#message');
 const table = document.querySelector('ul');
 
+let allData;
 let totalsRecord;
 
 window.onload = () => {
-    loadData();
+    message.textContent = 'Loading';
+
+    getDataFromServer('/country', data => {
+        data.totals = data.response[0];
+        data.results -= 1;
+        delete data.response[0];
+
+        allData = data;
+
+        updateTotalsRecord();
+        fillGlobalData();
+
+        fillTable(allData);
+
+        totalsRecord ? table.appendChild(totalsRecord) : false;
+    });
 }
 
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    loadData();
+    refreshData();
 });
 
 limitInput.addEventListener('input', (event) => {
@@ -23,40 +39,36 @@ limitInput.addEventListener('input', (event) => {
 
 countryInput.addEventListener('input', (event) => {
     countryInput.value ? limitInput.disabled = true : limitInput.disabled = false;
+
+    countryInput.value === '' ? countryInput.value === undefined : countryInput;
+
+    refreshData({ country: countryInput.value });
 });
 
-const loadData = () => {
+const refreshData = ({ country, limit }) => {
+    const filteredData = JSON.parse(JSON.stringify(allData));
+    
     message.textContent = 'Loading';
-    let route = '/country';
 
-    countryInput.value.trim() ? route += `?country=${countryInput.value}` : route;
+    if (country) {
+        const filteringText = country.toUpperCase();
 
-    if (limitInput.value != 0) {
-        route.includes('?') ? route += '&' : route += '?';
-        route += `limit=${+limitInput.value + 1}`;
+        filteredData.response = [];
+        filteredData.results = 0;
+
+        for (let i = 1; i < allData.response.length; i++) {
+            if (allData.response[i].country.toUpperCase().includes(filteringText)) {
+                filteredData.response.push(allData.response[i]);
+                filteredData.results++;
+            }
+        }
+    } else if (limit) {
+        filteredData.response = [];
+        filteredData.results = 0;
     }
 
-    getDataFromServer(route, data => {
-        const numberOfChildren = table.children.length;
-        totalsRecord = undefined;
-
-        for (let i = 1; i < numberOfChildren; i++) {
-            table.removeChild(table.children[1]);
-        }
-
-        if (data.response[0].country === "All") {
-            data.totals = data.response[0];
-            data.results -= 1;
-            delete data.response[0];
-
-            fillGlobalData(data.totals);
-            updateTotalsRecord(data.totals);
-        }
-
-        fillTable(data);
-
-        totalsRecord ? table.appendChild(totalsRecord) : false;
-    });
+    fillTable(filteredData);
+    message.textContent = '';
 }
 
 const getDataFromServer = (route, callback) => {
@@ -75,24 +87,33 @@ const getDataFromServer = (route, callback) => {
     });
 }
 
-const fillTable = tableData => {
-    tableData.response.forEach(countryData => {
-        table.appendChild(createListItem(countryData));
-    });
+const fillTable = data => {
+    const numberOfChildren = table.children.length;
+
+    for (let i = 1; i < numberOfChildren; i++) {
+        table.removeChild(table.children[1]);
+    }
+
+    for (let i = 1; i < data.response.length; i++) {
+        table.appendChild(createListItem(data.response[i]));
+    }
 }
 
-const fillGlobalData = globalData => {
+const fillGlobalData = () => {
     const casesTop = document.querySelector('#virus-cases-top');
     const deathsTop = document.querySelector('#deaths-top');
     const recoveredTop = document.querySelector('#recovered-top');
 
-    casesTop.textContent = globalData.cases.total;
-    deathsTop.textContent = globalData.deaths.total;
-    recoveredTop.textContent = globalData.cases.recovered;
+    const totalsFromAllData = allData.totals;
+
+    casesTop.textContent = totalsFromAllData.cases.total;
+    deathsTop.textContent = totalsFromAllData.deaths.total;
+    recoveredTop.textContent = totalsFromAllData.cases.recovered;
 }
 
-const updateTotalsRecord = (data) => {
-    totalsRecord = createListItem(data);
+const updateTotalsRecord = () => {
+    const totalsFromAllData = allData.totals;
+    totalsRecord = createListItem(totalsFromAllData);
 
     totalsRecord.classList.add('totals-row');
     totalsRecord.children[0].textContent = 'Totals Worldwide';
@@ -101,7 +122,6 @@ const updateTotalsRecord = (data) => {
     totalsRecord.childNodes.forEach(child => {
         child.classList.add('totals-data');
     });
-
 }
 
 const createListItem = countryData => {
