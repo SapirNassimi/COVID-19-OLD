@@ -7,6 +7,10 @@ const message = document.querySelector('#message');
 
 statisticsForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    loadData();
+});
+
+const loadData = () => {
     message.textContent = 'Loading';
     let route = '/country';
 
@@ -14,13 +18,29 @@ statisticsForm.addEventListener('submit', (event) => {
 
     if (limitInput.value != 0) {
         route.includes('?') ? route += '&' : route += '?';
-        route += `limit=${limitInput.value + 1}`;
+        route += `limit=${+limitInput.value + 1}`;
     }
 
     getDataFromServer(route, data => {
         fillTable(data);
     });
-});
+}
+
+const getDataFromServer = (route, callback) => {
+    fetch(route).then(response => {
+        console.log(response);
+        response.json().then(data => {
+            if (data.error) {
+                console.log(data.error);
+                message.textContent = data.error;
+            } else {
+                console.log(data.details);
+                message.textContent = '';
+                callback(data.details);
+            }
+        });
+    });
+}
 
 const fillTable = tableData => {
     const table = document.querySelector('ul');
@@ -70,21 +90,5 @@ const fillTable = tableData => {
         li.appendChild(divActiveCases);
 
         table.appendChild(li);
-    });
-}
-
-const getDataFromServer = (route, callback) => {
-    fetch(route).then(response => {
-        console.log(response);
-        response.json().then(data => {
-            if (data.error) {
-                console.log(data.error);
-                message.textContent = data.error;
-            } else {
-                console.log(data.details);
-                message.textContent = '';
-                callback(data.details);
-            }
-        });
     });
 }
