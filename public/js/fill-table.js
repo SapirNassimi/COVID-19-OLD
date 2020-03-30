@@ -45,9 +45,12 @@ const loadData = () => {
         }
 
         if (data.response[0].country === "All") {
-            fillGlobalData(data.response[0]);
-            updateTotalsRecord(data.response[0]);
+            data.totals = data.response[0];
+            data.results -= 1;
             delete data.response[0];
+
+            fillGlobalData(data.totals);
+            updateTotalsRecord(data.totals);
         }
 
         fillTable(data);
@@ -82,10 +85,17 @@ const fillGlobalData = globalData => {
 
 }
 
-const updateTotalsRecord = data => {
-    const totals = createListItem(data);
+const updateTotalsRecord = (data) => {
+    totalsRecord = createListItem(data);
 
-    totalsRecord = totals;
+    totalsRecord.classList.add('totals-row');
+    totalsRecord.children[0].textContent = 'Totals Worldwide';
+    totalsRecord.children[0].classList.add('totals-header-div');
+
+    totalsRecord.childNodes.forEach(child => {
+        child.classList.add('totals-data');
+    });
+
 }
 
 const createListItem = countryData => {

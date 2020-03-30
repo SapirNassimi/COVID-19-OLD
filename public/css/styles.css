@@ -88,6 +88,10 @@ h2 {
     box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.1);
 }
 
+.data-table .totals-row {
+    background-color: #e1e6e7;
+}
+
 .data-table .col-1 {
     flex-basis: 16%;
     font-weight: bolder;
@@ -123,4 +127,12 @@ h2 {
 
 .data-table .green {
     color: rgb(6, 204, 6);
+}
+
+.data-table .totals-data {
+    font-weight: bolder;
+}
+
+.data-table .totals-header-div {
+    color: #6e9194;
 }
