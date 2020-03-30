@@ -1,6 +1,6 @@
 body {
     color: #333;
-    font-family: 'lato', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: auto;
     margin: 0 auto;
     padding: 0 10%;
@@ -88,6 +88,10 @@ h2 {
     box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.1);
 }
 
+.data-table .totals-row {
+    background-color: #e1e6e7;
+}
+
 .data-table .col-1 {
     flex-basis: 16%;
     font-weight: bolder;
@@ -117,10 +121,52 @@ h2 {
     flex-basis: 12%;
 }
 
-.data-table .red {
+.red {
     color: red;
 }
 
-.data-table .green {
+.green {
     color: rgb(6, 204, 6);
+}
+
+.data-table .totals-data {
+    font-weight: bolder;
+}
+
+.data-table .totals-header-div {
+    color: #6e9194;
+}
+
+#header-wrapper {
+    overflow: hidden;
+}
+
+#input-form {
+    float:left;
+    width: 40%;
+}
+
+#totals-data-div {
+    float:right;
+    width: 55%;
+}
+
+.top-data-title-div {
+    float: left;
+    padding: 10% 5%;
+    margin: 1%;
+}
+
+.top-data-title {
+    color: #95a5a6;
+    text-transform: uppercase;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 14px;
+}
+
+.top-data-value {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
 }
