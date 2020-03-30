@@ -23,8 +23,6 @@ window.onload = () => {
         fillGlobalData();
 
         fillTable(allData);
-
-        totalsRecord ? table.appendChild(totalsRecord) : false;
     });
 }
 
@@ -53,7 +51,7 @@ const refreshData = ({ country, limit }) => {
     if (country) {
         const filteringText = country.toUpperCase();
 
-        filteredData.response = [];
+        filteredData.response = [undefined];
         filteredData.results = 0;
 
         for (let i = 1; i < allData.response.length; i++) {
@@ -63,12 +61,12 @@ const refreshData = ({ country, limit }) => {
             }
         }
     } else if (limit) {
-        filteredData.response = [];
+        filteredData.response = [undefined];
         filteredData.results = 0;
     }
 
-    fillTable(filteredData);
     message.textContent = '';
+    fillTable(filteredData);
 }
 
 const getDataFromServer = (route, callback) => {
@@ -97,6 +95,8 @@ const fillTable = data => {
     for (let i = 1; i < data.response.length; i++) {
         table.appendChild(createListItem(data.response[i]));
     }
+
+    totalsRecord ? table.appendChild(totalsRecord) : false;
 }
 
 const fillGlobalData = () => {
