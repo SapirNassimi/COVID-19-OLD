@@ -3,7 +3,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: auto;
     margin: 0 auto;
-    padding: 0 10%;
+    padding: 0 5%;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -53,8 +53,6 @@ button {
     max-width: auto;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 h2 {
@@ -139,6 +137,7 @@ h2 {
 
 #header-wrapper {
     overflow: hidden;
+    padding-left: 10%;
 }
 
 #input-form {
