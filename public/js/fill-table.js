@@ -14,6 +14,14 @@ statisticsForm.addEventListener('submit', (event) => {
     loadData();
 });
 
+limitInput.addEventListener('input', (event) => {
+    limitInput.value ? countryInput.disabled = true : countryInput.disabled = false;
+});
+
+countryInput.addEventListener('input', (event) => {
+    countryInput.value ? limitInput.disabled = true : limitInput.disabled = false;
+});
+
 const loadData = () => {
     message.textContent = 'Loading';
     let route = '/country';
