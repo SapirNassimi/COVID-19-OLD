@@ -36,9 +36,7 @@ window.onload = () => {
 }
 
 countryInput.addEventListener('input', () => {
-    countryInput.value === '' ? countryInput.value === undefined : countryInput;
-
-    refreshData({ country: countryInput.value });
+    filterTable();
 });
 
 // col1header.addEventListener('click', () => {
@@ -239,6 +237,7 @@ const sortByProperty = (firstProperty, secondProperty, isAscending) => {
     isAscending ? allData.response.reverse() : false;
 
     fillTable(allData);
+    filterTable();
 }
 
 const toLocaleStringPlusSign = string => {
@@ -251,4 +250,10 @@ const toLocaleStringPlusSign = string => {
     }
 
     return null;
+}
+
+const filterTable = () => {
+    countryInput.value === '' ? countryInput.value === undefined : countryInput;
+
+    refreshData({ country: countryInput.value });
 }
