@@ -5,8 +5,18 @@ const countryInput = document.querySelector('#country-input');
 const message = document.querySelector('#message');
 const table = document.querySelector('ul');
 
+const col1header = document.querySelector('#col-1-header');
+const col2header = document.querySelector('#col-2-header');
+const col3header = document.querySelector('#col-3-header');
+const col4header = document.querySelector('#col-4-header');
+const col5header = document.querySelector('#col-5-header');
+const col6header = document.querySelector('#col-6-header');
+const col7header = document.querySelector('#col-7-header');
+const col8header = document.querySelector('#col-8-header');
+
 let allData;
 let totalsRecord;
+let lastOrderdColumn = { name: col2header.textContent, isAscending: false };
 
 window.onload = () => {
     message.textContent = 'Loading';
@@ -14,7 +24,7 @@ window.onload = () => {
     getDataFromServer('/country', data => {
         data.totals = data.response[0];
         data.results -= 1;
-        delete data.response[0];
+        data.response.shift();
 
         allData = data;
 
@@ -31,7 +41,71 @@ countryInput.addEventListener('input', () => {
     refreshData({ country: countryInput.value });
 });
 
-const refreshData = ({ country, limit }) => {
+// col1header.addEventListener('click', () => {
+//     lastOrderdColumn.name === col1header.textContent ? 
+//         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+//         lastOrderdColumn = { name: col1header.textContent, isAscending: true};
+    
+//     sortByProperty('country', undefined, lastOrderdColumn.isAscending);
+// });
+
+col2header.addEventListener('click', () => {
+    lastOrderdColumn.name === col2header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col2header.textContent, isAscending: true};
+
+    sortByProperty('cases', 'total', lastOrderdColumn.isAscending);
+});
+
+col3header.addEventListener('click', () => {
+    lastOrderdColumn.name === col3header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col3header.textContent, isAscending: true};
+    
+    sortByProperty('cases', 'new', lastOrderdColumn.isAscending);
+});
+
+col4header.addEventListener('click', () => {
+    lastOrderdColumn.name === col4header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col4header.textContent, isAscending: true};
+
+    sortByProperty('deaths', 'total', lastOrderdColumn.isAscending);
+});
+
+col5header.addEventListener('click', () => {
+    lastOrderdColumn.name === col5header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col5header.textContent, isAscending: true};
+
+    sortByProperty('deaths', 'new', lastOrderdColumn.isAscending);
+});
+
+col6header.addEventListener('click', () => {
+    lastOrderdColumn.name === col6header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col6header.textContent, isAscending: true};
+
+    sortByProperty('cases', 'critical', lastOrderdColumn.isAscending);
+});
+
+col7header.addEventListener('click', () => {
+    lastOrderdColumn.name === col7header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col7header.textContent, isAscending: true};
+
+    sortByProperty('cases', 'recovered', lastOrderdColumn.isAscending);
+});
+
+col8header.addEventListener('click', () => {
+    lastOrderdColumn.name === col8header.textContent ? 
+        lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
+        lastOrderdColumn = { name: col8header.textContent, isAscending: true};
+    
+    sortByProperty('cases', 'active', lastOrderdColumn.isAscending);
+});
+
+const refreshData = ({ country }) => {
     const filteredData = JSON.parse(JSON.stringify(allData));
     
     message.textContent = 'Loading';
@@ -39,8 +113,8 @@ const refreshData = ({ country, limit }) => {
     if (country) {
         const filteringText = country.toUpperCase();
 
-        filteredData.response = [undefined];
         filteredData.results = 0;
+        filteredData.response = [];
 
         for (let i = 1; i < allData.response.length; i++) {
             if (allData.response[i].country.toUpperCase().includes(filteringText)) {
@@ -48,9 +122,6 @@ const refreshData = ({ country, limit }) => {
                 filteredData.results++;
             }
         }
-    } else if (limit) {
-        filteredData.response = [undefined];
-        filteredData.results = 0;
     }
 
     message.textContent = '';
@@ -80,7 +151,7 @@ const fillTable = data => {
         table.removeChild(table.children[1]);
     }
 
-    for (let i = 1; i < data.response.length; i++) {
+    for (let i = 0; i < data.response.length; i++) {
         table.appendChild(createListItem(data.response[i]));
     }
 
@@ -157,4 +228,15 @@ const createListItem = countryData => {
         li.appendChild(divActiveCases);
 
     return li;
+}
+
+const sortByProperty = (firstProperty, secondProperty, isAscending) => {
+    
+    secondProperty ? 
+        allData.response.sort((a, b) => b[firstProperty][secondProperty] - a[firstProperty][secondProperty]) :
+        allData.response.sort((a, b) => b[firstProperty] - a[firstProperty]);
+
+    isAscending ? allData.response.reverse() : false;
+
+    fillTable(allData);
 }
