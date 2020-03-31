@@ -128,7 +128,7 @@ const createListItem = countryData => {
 
         let divNewCases = document.createElement('div');
         divNewCases.classList.add('col', 'col-3', 'red');
-        divNewCases.textContent = countryData.cases.new;
+        divNewCases.textContent = toLocaleStringPlusSign(countryData.cases.new);
         li.appendChild(divNewCases);
 
         let divtotalDeaths = document.createElement('div');
@@ -138,7 +138,7 @@ const createListItem = countryData => {
 
         let divNewDeaths = document.createElement('div');
         divNewDeaths.classList.add('col', 'col-5', 'red');
-        divNewDeaths.textContent = countryData.deaths.new;
+        divNewDeaths.textContent = toLocaleStringPlusSign(countryData.deaths.new);
         li.appendChild(divNewDeaths);
 
         let divCritical = document.createElement('div');
@@ -157,4 +157,16 @@ const createListItem = countryData => {
         li.appendChild(divActiveCases);
 
     return li;
+}
+
+const toLocaleStringPlusSign = string => {
+    if (string && !isNaN(string) && isNaN(string.charAt(0))) {
+        let stringWithCommas = string.substr(1);
+        stringWithCommas = Number(stringWithCommas).toLocaleString();
+        stringWithCommas = '+' + stringWithCommas;
+
+        return stringWithCommas;
+    }
+
+    return null;
 }
