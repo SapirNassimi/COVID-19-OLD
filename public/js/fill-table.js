@@ -94,9 +94,9 @@ const fillGlobalData = () => {
 
     const totalsFromAllData = allData.totals;
 
-    casesTop.textContent = totalsFromAllData.cases.total;
-    deathsTop.textContent = totalsFromAllData.deaths.total;
-    recoveredTop.textContent = totalsFromAllData.cases.recovered;
+    casesTop.textContent = totalsFromAllData.cases.total.toLocaleString();
+    deathsTop.textContent = totalsFromAllData.deaths.total.toLocaleString();
+    recoveredTop.textContent = totalsFromAllData.cases.recovered.toLocaleString();
 }
 
 const updateTotalsRecord = () => {
