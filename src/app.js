@@ -20,22 +20,7 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
-    const country = req.query.country;
-
-    getStatistics(country, (error, data) => {
-        if (error) {
-            return res.render('index', {
-                error: 'An error occured. Try again later',
-                additionalErrorData: error
-            });
-        }
-
-        sortByMostInfected(data.response);
-
-        res.render('index', {
-            details: data
-        });
-    });
+    res.render('index');
 });
 
 app.get('/country', (req, res) => {
