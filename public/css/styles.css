@@ -173,3 +173,7 @@ h2 {
 .table-header .col {
     cursor: pointer;
 }
+
+#col-1-header {
+    cursor: auto;
+}
