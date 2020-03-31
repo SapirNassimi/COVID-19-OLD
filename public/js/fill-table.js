@@ -123,7 +123,7 @@ const createListItem = countryData => {
 
         let divTotalCases = document.createElement('div');
         divTotalCases.classList.add('col', 'col-2');
-        divTotalCases.textContent = countryData.cases.total;
+        divTotalCases.textContent = countryData.cases.total.toLocaleString();
         li.appendChild(divTotalCases);
 
         let divNewCases = document.createElement('div');
@@ -133,7 +133,7 @@ const createListItem = countryData => {
 
         let divtotalDeaths = document.createElement('div');
         divtotalDeaths.classList.add('col', 'col-4');
-        divtotalDeaths.textContent = countryData.deaths.total;
+        divtotalDeaths.textContent = countryData.deaths.total.toLocaleString();
         li.appendChild(divtotalDeaths);
 
         let divNewDeaths = document.createElement('div');
@@ -143,17 +143,17 @@ const createListItem = countryData => {
 
         let divCritical = document.createElement('div');
         divCritical.classList.add('col', 'col-6');
-        divCritical.textContent = countryData.cases.critical;
+        divCritical.textContent = countryData.cases.critical.toLocaleString();
         li.appendChild(divCritical);
 
         let divRecovered = document.createElement('div');
         divRecovered.classList.add('col', 'col-7', 'green');
-        divRecovered.textContent = countryData.cases.recovered;
+        divRecovered.textContent = countryData.cases.recovered.toLocaleString();
         li.appendChild(divRecovered);
 
         let divActiveCases = document.createElement('div');
         divActiveCases.classList.add('col', 'col-8');
-        divActiveCases.textContent = countryData.cases.active;
+        divActiveCases.textContent = countryData.cases.active.toLocaleString();
         li.appendChild(divActiveCases);
 
     return li;
