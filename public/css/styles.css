@@ -50,6 +50,11 @@ button {
     padding: 8px;
 }
 
+.text-input {
+    border-radius: 10px;
+    outline: none;
+}
+
 .container {
     max-width: auto;
     margin-left: auto;
