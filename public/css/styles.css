@@ -57,8 +57,6 @@ button {
 
 .container {
     max-width: auto;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 h2 {
@@ -148,17 +146,17 @@ h2 {
 
 #input-form {
     float:left;
-    width: 40%;
+    width: min-content;
 }
 
 #totals-data-div {
     float:right;
-    width: 55%;
+    width: 60%;
 }
 
 .top-data-title-div {
     float: left;
-    padding: 10% 4%;
+    padding: 5% 4%;
 }
 
 .top-data-title {
