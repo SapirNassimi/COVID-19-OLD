@@ -46,25 +46,6 @@ app.get('/country', async (req, res) => {
     }
 })
 
-// app.get('/country', (req, res) => {
-//     const country = req.query.country;
-    
-//     getStatistics(country, (error, data) => {
-//         if (error) {
-//             return res.render('index', {
-//                 error: 'An error occured. Try again later',
-//                 additionalErrorData: error
-//             }); 
-//         }
-
-//         sortByMostInfected(data.response);
-        
-//         res.send({
-//             details: data
-//         });
-//     });
-// });
-
 app.get('*', (req, res) => {
     res.render('404', {
         title: '404',
