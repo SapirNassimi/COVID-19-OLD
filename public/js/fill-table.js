@@ -41,7 +41,7 @@ countryInput.addEventListener('input', () => {
 col2header.addEventListener('click', () => {
     lastOrderdColumn.name === col2header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col2header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col2header.textContent, isAscending: false};
 
     sortByProperty('cases', 'total', lastOrderdColumn.isAscending);
 });
@@ -49,7 +49,7 @@ col2header.addEventListener('click', () => {
 col3header.addEventListener('click', () => {
     lastOrderdColumn.name === col3header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col3header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col3header.textContent, isAscending: false};
     
     sortByProperty('cases', 'new', lastOrderdColumn.isAscending);
 });
@@ -57,7 +57,7 @@ col3header.addEventListener('click', () => {
 col4header.addEventListener('click', () => {
     lastOrderdColumn.name === col4header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col4header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col4header.textContent, isAscending: false};
 
     sortByProperty('deaths', 'total', lastOrderdColumn.isAscending);
 });
@@ -65,7 +65,7 @@ col4header.addEventListener('click', () => {
 col5header.addEventListener('click', () => {
     lastOrderdColumn.name === col5header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col5header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col5header.textContent, isAscending: false};
 
     sortByProperty('deaths', 'new', lastOrderdColumn.isAscending);
 });
@@ -73,7 +73,7 @@ col5header.addEventListener('click', () => {
 col6header.addEventListener('click', () => {
     lastOrderdColumn.name === col6header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col6header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col6header.textContent, isAscending: false};
 
     sortByProperty('cases', 'critical', lastOrderdColumn.isAscending);
 });
@@ -81,7 +81,7 @@ col6header.addEventListener('click', () => {
 col7header.addEventListener('click', () => {
     lastOrderdColumn.name === col7header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col7header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col7header.textContent, isAscending: false};
 
     sortByProperty('cases', 'recovered', lastOrderdColumn.isAscending);
 });
@@ -89,7 +89,7 @@ col7header.addEventListener('click', () => {
 col8header.addEventListener('click', () => {
     lastOrderdColumn.name === col8header.textContent ? 
         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-        lastOrderdColumn = { name: col8header.textContent, isAscending: true};
+        lastOrderdColumn = { name: col8header.textContent, isAscending: false};
     
     sortByProperty('cases', 'active', lastOrderdColumn.isAscending);
 });
