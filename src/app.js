@@ -23,24 +23,28 @@ app.get('', (req, res) => {
     res.render('index');
 });
 
-app.get('/country', (req, res) => {
+app.get('/country', async (req, res) => {
     const country = req.query.country;
+    let data;
 
-    getStatistics(country, (error, data) => {
-        if (error) {
-            return res.render('index', {
-                error: 'An error occured. Try again later',
-                additionalErrorData: error
-            }); 
-        }
+    try {
+        data = await getStatistics(country);
+        
+        console.log('HELLO');
+        console.log(data.response.length);
 
         sortByMostInfected(data.response);
-        
+
         res.send({
             details: data
         });
-    });
-});
+    } catch (error) {
+        res.render('index', {
+            error: 'An error occured. Try again later',
+            additionalErrorData: error
+        });
+    }
+})
 
 app.get('*', (req, res) => {
     res.render('404', {

@@ -18,34 +18,25 @@ let allData;
 let totalsRecord;
 let lastOrderdColumn = { name: col2header.textContent, isAscending: false };
 
-window.onload = () => {
+window.onload = async () => {
     message.textContent = 'Loading';
 
-    getDataFromServer('/country', data => {
-        data.totals = data.response[0];
-        data.results -= 1;
-        data.response.shift();
+    const data = await getDataFromServer('/country');
 
-        allData = data;
-
-        updateTotalsRecord();
-        fillGlobalData();
-
-        fillTable(allData);
-    });
+    data.totals = data.response[0];
+    data.results -= 1;
+    data.response.shift();
+    
+    allData = data;
+    
+    updateTotalsRecord();
+    fillGlobalData();
+    fillTable(allData);
 }
 
 countryInput.addEventListener('input', () => {
     filterTable();
 });
-
-// col1header.addEventListener('click', () => {
-//     lastOrderdColumn.name === col1header.textContent ? 
-//         lastOrderdColumn.isAscending = !lastOrderdColumn.isAscending : 
-//         lastOrderdColumn = { name: col1header.textContent, isAscending: true};
-    
-//     sortByProperty('country', undefined, lastOrderdColumn.isAscending);
-// });
 
 col2header.addEventListener('click', () => {
     lastOrderdColumn.name === col2header.textContent ? 
@@ -126,20 +117,18 @@ const refreshData = ({ country }) => {
     fillTable(filteredData);
 }
 
-const getDataFromServer = (route, callback) => {
-    fetch(route).then(response => {
-        console.log(response);
-        response.json().then(data => {
-            if (data.error) {
-                console.log(data.error);
-                message.textContent = data.error;
-            } else {
-                console.log(data.details);
-                message.textContent = '';
-                callback(data.details);
-            }
-        });
-    });
+const getDataFromServer = async route => {
+    const response = await (await fetch(route)).json();
+
+    if (response.error) {
+        console.log(response.error);
+        message.textContent = data.error;
+    } else {
+        console.log(response.details);
+        message.textContent = '';
+
+        return response.details;
+    }
 }
 
 const fillTable = data => {

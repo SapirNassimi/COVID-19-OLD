@@ -1,28 +1,25 @@
 const unirest = require('unirest');
 
-const getStatistics = (countryName, callback) => {
-    const request = unirest('GET', 'https://covid-193.p.rapidapi.com/statistics');
-
-    if (countryName) {
-        request.query({
-            country: countryName
+const getStatistics = async countryName => {
+    const request = unirest.get('https://covid-193.p.rapidapi.com/statistics')
+        .headers({
+            'x-rapidapi-host': 'covid-193.p.rapidapi.com',
+            'x-rapidapi-key': 'd7382f77damsh1447cc50e9c4f49p1b3e7cjsn48d3d0e9d300'
         });
-    }
 
-    request.headers({
-        'x-rapidapi-host': 'covid-193.p.rapidapi.com',
-        'x-rapidapi-key': 'd7382f77damsh1447cc50e9c4f49p1b3e7cjsn48d3d0e9d300'
-    });
-    
-    request.end(res => {
-        if (res.error) {
-            callback(res.error);
-        }
+    countryName ? request.send({ country: countryName }) : request.send();
 
-        callback(undefined, res.body);
-    
+    let response;
+
+    countryName ? response = await request.send({ country: countryName }) : response = await request.send();
+
+    if (response.error) {
+        return new Error(response.error);
+    } else {
         console.log('Done fetching data');
-    });
+
+        return response.body;
+    }
 }
 
 module.exports = {
