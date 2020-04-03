@@ -1,11 +1,9 @@
 console.log('Client side javascript is loaded');
 
-const statisticsForm = document.querySelector('form');
 const countryInput = document.querySelector('#country-input');
 const message = document.querySelector('#message');
 const table = document.querySelector('ul');
 
-const col1header = document.querySelector('#col-1-header');
 const col2header = document.querySelector('#col-2-header');
 const col3header = document.querySelector('#col-3-header');
 const col4header = document.querySelector('#col-4-header');
@@ -145,18 +143,6 @@ const fillTable = data => {
     totalsRecord ? table.appendChild(totalsRecord) : false;
 }
 
-const fillGlobalData = () => {
-    const casesTop = document.querySelector('#virus-cases-top');
-    const deathsTop = document.querySelector('#deaths-top');
-    const recoveredTop = document.querySelector('#recovered-top');
-
-    const totalsFromAllData = allData.totals;
-
-    casesTop.textContent = totalsFromAllData.cases.total.toLocaleString();
-    deathsTop.textContent = totalsFromAllData.deaths.total.toLocaleString();
-    recoveredTop.textContent = totalsFromAllData.cases.recovered.toLocaleString();
-}
-
 const updateTotalsRecord = () => {
     const totalsFromAllData = allData.totals;
     totalsRecord = createListItem(totalsFromAllData);
@@ -168,6 +154,20 @@ const updateTotalsRecord = () => {
     totalsRecord.childNodes.forEach(child => {
         child.classList.add('totals-data');
     });
+}
+
+const fillGlobalData = () => {
+    const casesTop = document.querySelector('#virus-cases-top');
+    const deathsTop = document.querySelector('#deaths-top');
+    const recoveredTop = document.querySelector('#recovered-top');
+    const updateTimeTop = document.querySelector('#update-time-top-value');
+
+    const totalsFromAllData = allData.totals;
+
+    casesTop.textContent = totalsFromAllData.cases.total.toLocaleString();
+    deathsTop.textContent = totalsFromAllData.deaths.total.toLocaleString();
+    recoveredTop.textContent = totalsFromAllData.cases.recovered.toLocaleString();
+    updateTimeTop.textContent = new Date(totalsFromAllData.time).toLocaleString();
 }
 
 const createListItem = countryData => {
