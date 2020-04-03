@@ -160,12 +160,14 @@ const fillGlobalData = () => {
     const casesTop = document.querySelector('#virus-cases-top');
     const deathsTop = document.querySelector('#deaths-top');
     const recoveredTop = document.querySelector('#recovered-top');
+    const updateTimeTop = document.querySelector('#update-time-top-value');
 
     const totalsFromAllData = allData.totals;
 
     casesTop.textContent = totalsFromAllData.cases.total.toLocaleString();
     deathsTop.textContent = totalsFromAllData.deaths.total.toLocaleString();
     recoveredTop.textContent = totalsFromAllData.cases.recovered.toLocaleString();
+    updateTimeTop.textContent = new Date(totalsFromAllData.time).toLocaleString();
 }
 
 const createListItem = countryData => {

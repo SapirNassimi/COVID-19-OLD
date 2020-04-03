@@ -152,19 +152,24 @@ h2 {
     padding-left: 10%;
 }
 
+#global-data-wrapper {
+    width: 60%;
+    float: right;
+}
+
 #input-form {
     float:left;
     width: 40%;
 }
 
-#totals-data-div {
-    float:right;
-    width: 60%;
-}
-
 .top-data-title-div {
     float: left;
-    padding: 5% 4%;
+    padding: 3% 4% 0% 4%;
+}
+
+.top-data-update-time-title-div {
+    width: 52%;
+    margin-left: 18%;
 }
 
 .top-data-title {
@@ -179,6 +184,17 @@ h2 {
     text-align: center;
     font-weight: bolder;
     font-size: 24px;
+}
+
+.update-time {
+    color: #95a5a6;
+    font-size: 12px;
+    float: left;
+    padding-right: 1%;
+}
+
+#update-time-top-value {
+    float: left;
 }
 
 .table-header .col {
