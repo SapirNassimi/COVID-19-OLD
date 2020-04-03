@@ -1,0 +1,38 @@
+<!DOCTYPE html
+
+<html>
+    <head>
+        <title>COVID-19</title>
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+
+    <body>
+        <div class="main-content">            
+            <div id="header-wrapper">
+                <form id="input-form">
+                    {{>header}}
+
+                    <p id="message"></p>
+                </form>
+
+                <form id="totals-data-div">
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Coronavirus Cases</p>
+                        <p class="top-data-value red" id="virus-cases-top"></p>
+                    </div>
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Deaths</p>
+                        <p class="top-data-value red" id="deaths-top"></p>
+                    </div>
+                    <div class="top-data-title-div">
+                        <p class="top-data-title">Recovered</p>
+                        <p class="top-data-value green" id="recovered-top"></p>
+                    </div>
+                </form>
+            </div>
+
+        {{>footer}}
+
+        <script src="/js/history.js"></script>
+    </body>
+</html>
