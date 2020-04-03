@@ -33,8 +33,16 @@ h1 {
 
 header a {
     color: #888;
-    margin-right: 16px;
+    margin-right: 40px;
     text-decoration: none;
+}
+
+#page-header {
+    margin-bottom: 20%;
+}
+
+.header-link {
+    float: left;
 }
 
 input {
@@ -146,7 +154,7 @@ h2 {
 
 #input-form {
     float:left;
-    width: min-content;
+    width: 40%;
 }
 
 #totals-data-div {
