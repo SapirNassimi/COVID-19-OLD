@@ -7,6 +7,7 @@ const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
 
 
 window.onload = async () => {
+    disableSubmitBotton(true);
     fillCountriesDropDownList();
 
     const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
@@ -30,6 +31,10 @@ inputForm.addEventListener('submit', async event => {
 
         let x = `Deaths Per Day In ${countryInput.value} From ${dateInput.value}`
     }
+});
+
+countryInput.addEventListener('click', () => {
+    countryInput.selectedIndex !== 0 ? disableSubmitBotton(false) : disableSubmitBotton(true);
 });
 
 const getDataFromServer = async route => {
@@ -165,4 +170,8 @@ const fillCountriesDropDownList = async () => {
         option.appendChild(document.createTextNode(data[i].name));
         countryInput.appendChild(option);
     }
+}
+
+const disableSubmitBotton = (disable) => {
+    disable ? submitInput.classList.add('disabled-button') : submitInput.classList.remove('disabled-button');
 }
