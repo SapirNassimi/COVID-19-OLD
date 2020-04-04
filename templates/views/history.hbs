@@ -13,7 +13,9 @@
                 <form id="input-form">
                     {{>header}}
 
-                    <input class="input" id="country-input" placeholder="Country">
+                    <select class="input" id="country-input">
+                        <option selected="disabled" hidden="true">Choose here</option>
+                    </select>
                     <input class="input" id="date-input" type="date">
                     <button class="input" id="show-results">Show Results</button>
                     <p id="message"></p>

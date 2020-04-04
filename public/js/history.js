@@ -7,8 +7,10 @@ const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
 
 
 window.onload = async () => {
+    fillCountriesDropDownList();
+
     const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
-    
+
     fillDeathsPerDayGrapghLinear(data.data);
 }
 
@@ -17,9 +19,7 @@ inputForm.addEventListener('submit', async event => {
 
     let route = '/history/country?country=';
 
-    countryInput.value === '' ? countryInput.value === undefined : countryInput;
-
-    if (countryInput.value) {
+    if (countryInput.selectedIndex !== 0) {
         route += countryInput.value;
 
         dateInput.value !== '' ? route += `&date=${dateInput.value}` : dateInput;
@@ -33,11 +33,7 @@ inputForm.addEventListener('submit', async event => {
 const getDataFromServer = async route => {
     message.textContent = 'Loading';
 
-    let x = await fetch(route);
-
-    console.log(x);
-
-    const response = await (x).json();
+    const response = await (await fetch(route)).json();
 
     if (response.error) {
         console.log(response.error);
@@ -45,8 +41,6 @@ const getDataFromServer = async route => {
     } else {
         console.log(response.details);
         message.textContent = '';
-
-        response.details.data.pop();
 
         return response.details;
     }
@@ -155,4 +149,18 @@ const getMinAndMaxValuesForYAxisByProperty = (data, property) => {
     output.minimum < 0 ? output.minimum = 0 : false;
 
     return output;
+}
+
+const fillCountriesDropDownList = async () => {
+    let data = await getDataFromServer('/history/countries/names');
+    let option;
+
+    data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+    
+    for (let i = 0; i < data.length; i++) {
+        option = document.createElement('option');
+        option.setAttribute('value', data[i].name);
+        option.appendChild(document.createTextNode(data[i].name));
+        countryInput.appendChild(option);
+    }
 }
