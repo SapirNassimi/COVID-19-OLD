@@ -2,6 +2,7 @@ const inputForm = document.querySelector('#input-form');
 const message = document.querySelector('#message');
 const countryInput = document.querySelector('#country-input');
 const submitInput = document.querySelector('#show-results');
+const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
 
 
 window.onload = async () => {
@@ -42,7 +43,13 @@ const getDataFromServer = async route => {
     }
 }
 
-const fillDeathsPerDayGrapghLinear = (data) => {
+const fillDeathsPerDayGrapghLinear = data => {
+    const numberOfChildren = deathsPerDaySvg.children.length;
+    
+    for (let i = 0; i < numberOfChildren; i++) {
+        deathsPerDaySvg.removeChild(deathsPerDaySvg.children[0]);
+    }
+    
     let margin = { top: 10, right: 30, bottom: 30, left: 60 };
     let width = 460 - margin.left - margin.right;
     let height = 400 - margin.top - margin.bottom;
@@ -91,7 +98,7 @@ const fillDeathsPerDayGrapghLinear = (data) => {
         .attr('fill', '#69b3a2');
 }
 
-const fillDeathsPerDayGrapghCircles = (data) => {
+const fillDeathsPerDayGrapghCircles = data => {
     let margin = { top: 10, right: 30, bottom: 30, left: 60 };
     let width = 460 - margin.left - margin.right;
     let height = 400 - margin.top - margin.bottom;
