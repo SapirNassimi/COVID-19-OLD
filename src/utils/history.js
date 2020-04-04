@@ -16,7 +16,7 @@ const getHistoryForCountryOnDate = async (countryName, date) => {
         if (response.error) {
             return new Error(response.error);
         } else {
-            console.log(`Done fetching history data for ${countryName}`);
+            console.log(`Done fetching history data for ${countryName} on ${date}`);
 
             return response.body;
         }

@@ -1,9 +1,45 @@
+const inputForm = document.querySelector('#input-form');
 const message = document.querySelector('#message');
+const countryInput = document.querySelector('#country-input');
+const submitInput = document.querySelector('#show-results');
+
 
 window.onload = async () => {
-    const data = await getDataFromServer('/history/country?country=israel&date=2020-03-15');
-
+    const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
+    
     fillDeathsPerDayGrapghLinear(data.data);
+}
+
+inputForm.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    countryInput.value === '' ? countryInput.value === undefined : countryInput;
+
+    if (countryInput.value) {
+        const data = await getDataFromServer(`/history/country?country=${countryInput.value}&date=2020-03-15`);
+
+        fillDeathsPerDayGrapghLinear(data.data);
+    }
+});
+
+const getDataFromServer = async route => {
+    message.textContent = 'Loading';
+
+    let x = await fetch(route);
+
+    console.log(x);
+
+    const response = await (x).json();
+
+    if (response.error) {
+        console.log(response.error);
+        message.textContent = data.error;
+    } else {
+        console.log(response.details);
+        message.textContent = '';
+
+        return response.details;
+    }
 }
 
 const fillDeathsPerDayGrapghLinear = (data) => {
@@ -51,10 +87,9 @@ const fillDeathsPerDayGrapghLinear = (data) => {
         .append('circle')
         .attr('cx', d => x(d3.timeParse("%Y-%m-%d")(d.date)))
         .attr('cy', d => y(d.new_deaths))
-        .attr('r', 5)
+        .attr('r', 3)
         .attr('fill', '#69b3a2');
 }
-
 
 const fillDeathsPerDayGrapghCircles = (data) => {
     let margin = { top: 10, right: 30, bottom: 30, left: 60 };
@@ -77,20 +112,4 @@ const fillDeathsPerDayGrapghCircles = (data) => {
         .attr('fill', 'yellow')
         .attr('stroke', 'orange')
         .attr('stroke-width', d => d.new_deaths / 2);
-}
-
-const getDataFromServer = async route => {
-    message.textContent = 'Loading';
-    
-    const response = await (await fetch(route)).json();
-
-    if (response.error) {
-        console.log(response.error);
-        message.textContent = data.error;
-    } else {
-        console.log(response.details);
-        message.textContent = '';
-
-        return response.details;
-    }
 }
