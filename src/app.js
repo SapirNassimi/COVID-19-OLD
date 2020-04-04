@@ -79,7 +79,7 @@ app.get('/history/country', async (req, res) => {
     req.query.date ? date = req.query.date : date = OLDEST_DATA_FROM_API_DATE;
 
     try {
-        while (new Date(date) < new Date()) {
+        while (date < moment(new Date()).format('YYYY-MM-DD')) {
             rawData = await getHistoryForCountryOnDate(country, date);
             rawData = rawData.data;
 
