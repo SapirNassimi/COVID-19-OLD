@@ -46,6 +46,8 @@ const getDataFromServer = async route => {
 const fillDeathsPerDayGrapghLinear = data => {
     clearSvg();
     
+    const yAxisRange = getMinAndMaxValuesForYAxisByProperty(data, 'new_deaths');
+    
     const margin = { top: 10, right: 30, bottom: 30, left: 60 };
     const width = 460 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
@@ -62,7 +64,7 @@ const fillDeathsPerDayGrapghLinear = data => {
         .range([0, width]);
 
     const y = d3.scaleLinear()
-        .domain([0, 20])
+        .domain([yAxisRange.minimum, yAxisRange.maximum])
         .range([height, 0]);
 
     svg.append('g')
@@ -123,4 +125,25 @@ const clearSvg = () => {
     for (let i = 0; i < numberOfChildren; i++) {
         deathsPerDaySvg.removeChild(deathsPerDaySvg.children[0]);
     }
+}
+
+const getMinAndMaxValuesForYAxisByProperty = (data, property) => {    
+    const output = {
+        minimum: data[0][property],
+        maximum: data[0][property]
+    }
+
+    for (let i = 0; i < data.length; i++) {
+        data[i][property] < output.minimum ? output.minimum = data[i][property] : false;
+        data[i][property] > output.maximum ? output.maximum = data[i][property] : false;
+    }
+
+    const axisPadding = (output.maximum - output.minimum) * 0.2;
+
+    output.minimum -= axisPadding;
+    output.maximum += axisPadding;
+
+    output.minimum < 0 ? output.minimum = 0 : false;
+
+    return output;
 }
