@@ -39,6 +39,8 @@ const getDataFromServer = async route => {
         console.log(response.details);
         message.textContent = '';
 
+        response.details.data.pop();
+
         return response.details;
     }
 }
