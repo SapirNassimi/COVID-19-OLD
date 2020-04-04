@@ -1,7 +1,8 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 
 <html>
     <head>
+        <script src="https://d3js.org/d3.v4.js"></script>
         <title>COVID-19</title>
         <link rel="stylesheet" href="./css/styles.css">
     </head>
@@ -17,6 +18,13 @@
 
                 {{>globalData}}
             </div>
+
+            <div>
+                <p>Deaths Per Day - Israel</p>
+                <div id="deaths-per-day-graph"></div>
+            </div>
+
+        </div>
 
         {{>footer}}
 
