@@ -44,15 +44,11 @@ const getDataFromServer = async route => {
 }
 
 const fillDeathsPerDayGrapghLinear = data => {
-    const numberOfChildren = deathsPerDaySvg.children.length;
+    clearSvg();
     
-    for (let i = 0; i < numberOfChildren; i++) {
-        deathsPerDaySvg.removeChild(deathsPerDaySvg.children[0]);
-    }
-    
-    let margin = { top: 10, right: 30, bottom: 30, left: 60 };
-    let width = 460 - margin.left - margin.right;
-    let height = 400 - margin.top - margin.bottom;
+    const margin = { top: 10, right: 30, bottom: 30, left: 60 };
+    const width = 460 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
     const svg = d3.select('#deaths-per-day-graph')
         .append('svg')
@@ -119,4 +115,12 @@ const fillDeathsPerDayGrapghCircles = data => {
         .attr('fill', 'yellow')
         .attr('stroke', 'orange')
         .attr('stroke-width', d => d.new_deaths / 2);
+}
+
+const clearSvg = () => {
+    const numberOfChildren = deathsPerDaySvg.children.length;
+    
+    for (let i = 0; i < numberOfChildren; i++) {
+        deathsPerDaySvg.removeChild(deathsPerDaySvg.children[0]);
+    }
 }
