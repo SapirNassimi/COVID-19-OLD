@@ -1,6 +1,7 @@
 const inputForm = document.querySelector('#input-form');
 const message = document.querySelector('#message');
 const countryInput = document.querySelector('#country-input');
+const dateInput = document.querySelector('#date-input');
 const submitInput = document.querySelector('#show-results');
 const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
 
@@ -14,10 +15,16 @@ window.onload = async () => {
 inputForm.addEventListener('submit', async event => {
     event.preventDefault();
 
+    let route = '/history/country?country=';
+
     countryInput.value === '' ? countryInput.value === undefined : countryInput;
 
     if (countryInput.value) {
-        const data = await getDataFromServer(`/history/country?country=${countryInput.value}&date=2020-03-15`);
+        route += countryInput.value;
+
+        dateInput.value !== '' ? route += `&date=${dateInput.value}` : dateInput;
+
+        const data = await getDataFromServer(route);
 
         fillDeathsPerDayGrapghLinear(data.data);
     }
