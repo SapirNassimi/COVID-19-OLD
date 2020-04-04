@@ -1,6 +1,6 @@
 const inputForm = document.querySelector('#input-form');
 const message = document.querySelector('#message');
-const countryInput = document.querySelector('#country-input');
+const countryInput = document.querySelector('#country-selector');
 const dateInput = document.querySelector('#date-input');
 const submitInput = document.querySelector('#show-results');
 const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');

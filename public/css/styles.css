@@ -69,6 +69,12 @@ button {
     height: 20px;
 }
 
+#country-selector {
+    width: 100px;
+    height: 37px;
+    border-color: #ccc;
+}
+
 #date-input {
     height: 20px;
 }
