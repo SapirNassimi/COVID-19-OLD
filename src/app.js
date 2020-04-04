@@ -4,7 +4,7 @@ const hbs = require('hbs');
 const moment = require('moment');
 
 const { getStatistics } = require('./utils/statistics');
-const { getHistoryForCountryOnDate } = require('./utils/history');
+const { getHistoryForCountryOnDate, getSupportedCountryNames } = require('./utils/history');
 const { sortByMostInfected } = require('./utils/sortRecords');
 
 const app = express();
@@ -79,7 +79,7 @@ app.get('/history/country', async (req, res) => {
     req.query.date ? date = req.query.date : date = OLDEST_DATA_FROM_API_DATE;
 
     try {
-        while (new Date(date) < new Date()) {
+        while (date < moment(new Date()).format('YYYY-MM-DD')) {
             rawData = await getHistoryForCountryOnDate(country, date);
             rawData = rawData.data;
 
@@ -113,6 +113,21 @@ app.get('/history/country', async (req, res) => {
 
         res.send({
             details: output
+        });
+    } catch (error) {
+        res.render('index', {
+            error: 'An error occured. Try again later',
+            additionalErrorData: error
+        });
+    }
+});
+
+app.get('/history/countries/names', async (req, res) => {
+    try {    
+        const data = await getSupportedCountryNames();
+
+        res.send({
+            details: data.data
         });
     } catch (error) {
         res.render('index', {

@@ -58,9 +58,25 @@ button {
     padding: 8px;
 }
 
-.text-input {
+.input {
     border-radius: 10px;
     outline: none;
+    margin-right: 15px;
+}
+
+#country-input {
+    width: 100px;
+    height: 20px;
+}
+
+#country-selector {
+    width: 100px;
+    height: 37px;
+    border-color: #ccc;
+}
+
+#date-input {
+    height: 20px;
 }
 
 .container {
@@ -149,11 +165,11 @@ h2 {
 
 #header-wrapper {
     overflow: hidden;
-    padding-left: 10%;
+    padding-left: 5%;
 }
 
 #global-data-wrapper {
-    width: 60%;
+    width: 45%;
     float: right;
 }
 
@@ -203,4 +219,9 @@ h2 {
 
 #col-1-header {
     cursor: auto;
+}
+
+.disabled-button {
+    opacity: 0.65; 
+    cursor: not-allowed;
 }

@@ -1,7 +1,8 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 
 <html>
     <head>
+        <script src="https://d3js.org/d3.v4.js"></script>
         <title>COVID-19</title>
         <link rel="stylesheet" href="./css/styles.css">
     </head>
@@ -12,11 +13,23 @@
                 <form id="input-form">
                     {{>header}}
 
+                    <select class="input" id="country-selector">
+                        <option selected="disabled" hidden="true">Choose here</option>
+                    </select>
+                    <input class="input" id="date-input" type="date" min="2020-01-22">
+                    <button class="input" id="show-results">Show Results</button>
                     <p id="message"></p>
                 </form>
 
                 {{>globalData}}
             </div>
+
+            <div>
+                <p id="deaths-per-day-graph-title"></p>
+                <div id="deaths-per-day-graph"></div>
+            </div>
+
+        </div>
 
         {{>footer}}
 
