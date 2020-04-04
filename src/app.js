@@ -39,6 +39,7 @@ app.get('/country', async (req, res) => {
         console.log(data.response.length);
 
         sortByMostInfected(data.response);
+        data.response.shift();
 
         res.send({
             details: data
