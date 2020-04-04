@@ -4,7 +4,7 @@ const countryInput = document.querySelector('#country-selector');
 const dateInput = document.querySelector('#date-input');
 const submitInput = document.querySelector('#show-results');
 const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
-
+const deathsPerDayGraphTitle = document.querySelector('#deaths-per-day-graph-title');
 
 window.onload = async () => {
     disableSubmitBotton(true);
@@ -13,6 +13,7 @@ window.onload = async () => {
     const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
 
     fillDeathsPerDayGrapghLinear(data.data);
+    deathsPerDayGraphTitle.textContent = 'Deaths Per Day In Israel';
 }
 
 inputForm.addEventListener('submit', async event => {
@@ -29,7 +30,7 @@ inputForm.addEventListener('submit', async event => {
 
         fillDeathsPerDayGrapghLinear(data.data);
 
-        let x = `Deaths Per Day In ${countryInput.value} From ${dateInput.value}`
+        deathsPerDayGraphTitle.textContent = `Deaths Per Day In ${countryInput.value}`;
     }
 });
 
@@ -148,7 +149,7 @@ const getMinAndMaxValuesForYAxisByProperty = (data, property) => {
         data[i][property] > output.maximum ? output.maximum = data[i][property] : false;
     }
 
-    const axisPadding = (output.maximum - output.minimum) * 0.2;
+    const axisPadding = Math.round((output.maximum - output.minimum) * 0.2);
 
     output.minimum -= axisPadding;
     output.maximum += axisPadding;
