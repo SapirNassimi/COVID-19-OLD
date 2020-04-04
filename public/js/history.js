@@ -27,6 +27,8 @@ inputForm.addEventListener('submit', async event => {
         const data = await getDataFromServer(route);
 
         fillDeathsPerDayGrapghLinear(data.data);
+
+        let x = `Deaths Per Day In ${countryInput.value} From ${dateInput.value}`
     }
 });
 
