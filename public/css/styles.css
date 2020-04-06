@@ -233,9 +233,10 @@ h2 {
     width: 60px;
     height: 60px;
     animation: spin 2s linear infinite;
-  }
+    margin-top: 3%;
+}
   
-  @keyframes spin {
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+}
