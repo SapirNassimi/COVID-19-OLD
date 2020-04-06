@@ -1,7 +1,7 @@
 console.log('Client side javascript is loaded');
 
 const countryInput = document.querySelector('#country-input');
-const message = document.querySelector('#message');
+const loader = document.querySelector('.loader');
 const table = document.querySelector('ul');
 
 const col2header = document.querySelector('#col-2-header');
@@ -17,8 +17,6 @@ let totalsRecord;
 let lastOrderdColumn = { name: col2header.textContent, isAscending: false };
 
 window.onload = async () => {
-    message.textContent = 'Loading';
-
     const data = await getDataFromServer('/country');
 
     data.totals = data.response[0];
@@ -95,8 +93,6 @@ col8header.addEventListener('click', () => {
 const refreshData = ({ country }) => {
     const filteredData = JSON.parse(JSON.stringify(allData));
     
-    message.textContent = 'Loading';
-
     if (country) {
         const filteringText = country.toUpperCase();
 
@@ -111,19 +107,18 @@ const refreshData = ({ country }) => {
         }
     }
 
-    message.textContent = '';
     fillTable(filteredData);
 }
 
 const getDataFromServer = async route => {
+    loader.hidden = false;
     const response = await (await fetch(route)).json();
 
     if (response.error) {
         console.log(response.error);
-        message.textContent = data.error;
     } else {
         console.log(response.details);
-        message.textContent = '';
+        loader.hidden = true
 
         return response.details;
     }
