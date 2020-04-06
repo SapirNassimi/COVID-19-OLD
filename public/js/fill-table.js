@@ -168,6 +168,8 @@ const fillGlobalData = () => {
     localStorage.setItem('deathsTop', deathsTop.textContent);
     localStorage.setItem('recoveredTop', recoveredTop.textContent);
     localStorage.setItem('updateTimeTop', updateTimeTop.textContent);
+
+    localStorage.setItem('mostInfectedCountry', allData.response[0].country);
 }
 
 const createListItem = countryData => {

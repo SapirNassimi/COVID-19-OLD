@@ -53,8 +53,11 @@ app.get('/country', async (req, res) => {
 });
 
 app.get('/history/country/date', async (req, res) => {
-    const country = req.query.country;
     const date = req.query.date;
+    let country = req.query.country;    
+
+    country.toUpperCase() === 'US' ? country = 'USA' : country;
+
 
     try {
         const data = await getHistoryForCountryOnDate(country, date);
@@ -71,13 +74,15 @@ app.get('/history/country/date', async (req, res) => {
 });
 
 app.get('/history/country', async (req, res) => {
-    const country = req.query.country;
-    const output = { country: country, data: [] };
+    let country = req.query.country;
     let date;
     let rawData;
     let dataPerDay;
+    const output = { country: country, data: [] };
 
-    req.query.date ? date = req.query.date : date = OLDEST_DATA_FROM_API_DATE;
+    country.toUpperCase() === 'USA' ? country = 'US' : country;
+
+    req.query.date ? date = moment(req.query.date).format('YYYY-MM-DD') : date = OLDEST_DATA_FROM_API_DATE;
 
     try {
         while (date < moment(new Date()).format('YYYY-MM-DD')) {
