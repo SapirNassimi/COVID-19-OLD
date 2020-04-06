@@ -11,6 +11,7 @@ let numberOfActiveFetchrequests = 0;
 window.onload = async () => {
     disableSubmitBotton(true);
     fillCountriesDropDownList();
+    fillGlobalData();
 
     const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
 
@@ -175,4 +176,11 @@ const fillCountriesDropDownList = async () => {
 
 const disableSubmitBotton = (disable) => {
     disable ? submitInput.classList.add('disabled-button') : submitInput.classList.remove('disabled-button');
+}
+
+const fillGlobalData = () => {
+    document.querySelector('#virus-cases-top').textContent = localStorage.getItem('casesTop');
+    document.querySelector('#deaths-top').textContent = localStorage.getItem('deathsTop');
+    document.querySelector('#recovered-top').textContent = localStorage.getItem('recoveredTop');
+    document.querySelector('#update-time-top-value').textContent = localStorage.getItem('updateTimeTop');
 }

@@ -163,6 +163,11 @@ const fillGlobalData = () => {
     deathsTop.textContent = totalsFromAllData.deaths.total.toLocaleString();
     recoveredTop.textContent = totalsFromAllData.cases.recovered.toLocaleString();
     updateTimeTop.textContent = new Date(totalsFromAllData.time).toLocaleString();
+
+    localStorage.setItem('casesTop', casesTop.textContent);
+    localStorage.setItem('deathsTop', deathsTop.textContent);
+    localStorage.setItem('recoveredTop', recoveredTop.textContent);
+    localStorage.setItem('updateTimeTop', updateTimeTop.textContent);
 }
 
 const createListItem = countryData => {
