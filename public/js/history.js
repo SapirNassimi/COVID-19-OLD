@@ -1,10 +1,12 @@
 const inputForm = document.querySelector('#input-form');
-const message = document.querySelector('#message');
+const loader = document.querySelector('.loader');
 const countryInput = document.querySelector('#country-selector');
 const dateInput = document.querySelector('#date-input');
 const submitInput = document.querySelector('#show-results');
 const deathsPerDaySvg = document.querySelector('#deaths-per-day-graph');
 const deathsPerDayGraphTitle = document.querySelector('#deaths-per-day-graph-title');
+
+let numberOfActiveFetchrequests = 0;
 
 window.onload = async () => {
     disableSubmitBotton(true);
@@ -39,19 +41,17 @@ countryInput.addEventListener('click', () => {
 });
 
 const getDataFromServer = async route => {
-    message.textContent = 'Loading';
+    loader.hidden = false;
+    numberOfActiveFetchrequests++;
 
     const response = await (await fetch(route)).json();
 
-    if (response.error) {
-        console.log(response.error);
-        message.textContent = data.error;
-    } else {
-        console.log(response.details);
-        message.textContent = '';
+    response.error ? console.log(response.error) : console.log(response.details);
 
-        return response.details;
-    }
+    numberOfActiveFetchrequests--;
+    numberOfActiveFetchrequests === 0 ? loader.hidden = true : false;
+    
+    return response.details;
 }
 
 const fillDeathsPerDayGrapghLinear = data => {
