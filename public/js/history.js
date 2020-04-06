@@ -13,10 +13,10 @@ window.onload = async () => {
     fillCountriesDropDownList();
     fillGlobalData();
 
-    const data = await getDataFromServer(`/history/country?country=israel&date=2020-03-20`);
+    const data = await getDataFromServer(`/history/country?country=${localStorage.getItem('mostInfectedCountry')}&date=${getDefaultDateForGraphs()}`);
 
     fillDeathsPerDayGrapghLinear(data.data);
-    deathsPerDayGraphTitle.textContent = 'Deaths Per Day In Israel';
+    deathsPerDayGraphTitle.textContent = `Deaths Per Day In ${localStorage.getItem('mostInfectedCountry')}`;
 }
 
 inputForm.addEventListener('submit', async event => {
@@ -183,4 +183,10 @@ const fillGlobalData = () => {
     document.querySelector('#deaths-top').textContent = localStorage.getItem('deathsTop');
     document.querySelector('#recovered-top').textContent = localStorage.getItem('recoveredTop');
     document.querySelector('#update-time-top-value').textContent = localStorage.getItem('updateTimeTop');
+}
+
+const getDefaultDateForGraphs = () => {
+    const returnDate = new Date((new Date).getTime() - (86400000 * 10));
+
+    return `${returnDate.getFullYear()}-${returnDate.getMonth() + 1}-${returnDate.getDate()}`
 }
